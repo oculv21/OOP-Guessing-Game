@@ -24,16 +24,24 @@ class Phrase {
 
     /**
      * Checks for letter in hidden phrase
+     * @param {string} the keyboard letter that was selected
+     * @returns {boolean} true if the selected key is in the phrase
      */
-    checkLetter() {
-
+    checkLetter(key) {
+        return this.phrase.includes(key);
     }
     
     /**
      * Reveals the letter(s) on the board that matches the player's selection
+     * @param {string} the keyboard letter that was selected
      */
-    showMatchedLetter() {
-
+    showMatchedLetter(key) {
+        let letters = document.getElementsByClassName(key);
+        console.log(letters);
+        for (let l of letters) {
+            l.classList.add('show');
+            l.classList.remove('hide');
+        };
     }
 } //end of class
 

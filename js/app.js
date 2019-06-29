@@ -4,4 +4,5 @@
 document.getElementById('btn__reset').addEventListener('click', function() {
     const game = new Game();
     game.startGame();
+    game.handleInteraction();
 })

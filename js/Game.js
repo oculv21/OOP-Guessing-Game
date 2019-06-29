@@ -29,7 +29,21 @@ class Game {
      * Handles input from player's keyboard
      */
     handleInteraction() {
-
+        const keys = document.getElementsByClassName('key');
+        for (let key of keys) {
+            key.addEventListener('click', event => {
+                let btn = event.target;
+                let key = event.target.textContent;
+                btn.setAttribute('disabled', true);
+                if (this.activePhrase.checkLetter(key)) {
+                   btn.classList.add('chosen');
+                   this.activePhrase.showMatchedLetter(key);
+                } else {
+                    btn.classList.add('wrong');
+                }
+            });
+        };
+       
     }
 
     /**
