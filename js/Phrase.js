@@ -10,7 +10,16 @@ class Phrase {
         const phraseSection = document.getElementById('phrase');
         const phraseList = phraseSection.querySelector('ul');
         let hiddenPhrase = this.phrase;
-        [...hiddenPhrase].forEach(c => console.log(c));
+        [...hiddenPhrase].forEach(c => {
+            let li = document.createElement('li');
+            if (/[a-z]/.test(c)) {
+                li.classList.add('hide', 'letter', c);
+            } else {
+                li.classList.add('space');
+            }
+            li.textContent = c;
+            phraseList.appendChild(li);
+        });
     }
 
     /**

@@ -1,7 +1,7 @@
-const logPhrase = (phrase) => {
-    console.log(`Phrase - phrase: `, phrase.phrase);
-    };
+/**
+ * Event listener for start button
+ */
+document.getElementById('btn__reset').addEventListener('click', function() {
     const game = new Game();
-    let phrase = game.getRandomPhrase();
-    logPhrase(phrase);
-    phrase.addPhraseToDisplay();
+    game.startGame();
+})

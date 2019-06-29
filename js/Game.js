@@ -19,7 +19,10 @@ class Game {
      * Starts game by selecting a phrase and putting it on display
      */
     startGame() {
-
+        document.getElementById('overlay').style.display = 'none';
+        const newPhrase = this.getRandomPhrase();
+        this.activePhrase = newPhrase;
+        this.activePhrase.addPhraseToDisplay();
     }
 
     /**
@@ -47,7 +50,7 @@ class Game {
      * Displays game over message when player wins or loses
      */
     gameOver() {
-        
+
     }
 
 }
