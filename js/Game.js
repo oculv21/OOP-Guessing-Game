@@ -10,18 +10,17 @@ class Game {
      * @returns {object} a phrase object with the random phrase
      */
     getRandomPhrase() {
-        let r = Math.floor(Math.random() * this.phrases.length);
-        let obj = new Phrase(this.phrases[r])
+        const r = Math.floor(Math.random() * this.phrases.length);
+        const obj = new Phrase(this.phrases[r])
         return obj;
     }
 
     /**
-     * Starts game by selecting a phrase and putting it on display
+     * Starts game by removing starting overlay, selecting a phrase and putting it on display
      */
     startGame() {
         document.getElementById('overlay').style.display = 'none';
-        const newPhrase = this.getRandomPhrase();
-        this.activePhrase = newPhrase;
+        this.activePhrase = this.getRandomPhrase();
         this.activePhrase.addPhraseToDisplay();
     }
 
@@ -32,14 +31,16 @@ class Game {
         const keys = document.getElementsByClassName('key');
         for (let key of keys) {
             key.addEventListener('click', event => {
-                let btn = event.target;
-                let key = event.target.textContent;
+                const btn = event.target;
+                const key = event.target.textContent;
                 btn.setAttribute('disabled', true);
                 if (this.activePhrase.checkLetter(key)) {
                    btn.classList.add('chosen');
                    this.activePhrase.showMatchedLetter(key);
+                   this.checkForWin();
                 } else {
                     btn.classList.add('wrong');
+                    this.removeLife();
                 }
             });
         };
@@ -47,24 +48,49 @@ class Game {
     }
 
     /**
-     * If a player makes a wrong guess, this removes a heart
+     * If a player makes a wrong guess, this removes a heart and increments the missed property
      */
     removeLife() {
-
+        const hearts = document.querySelectorAll('.tries img');
+        const loseHeart = n => hearts[n].setAttribute('src', 'images/lostHeart.png');
+        this.missed += 1;
+        switch (this.missed) {
+            case 1:
+                loseHeart(0);
+                break;
+            case 2:
+                loseHeart(1);
+                break;
+            case 3:
+                loseHeart(2);
+                break;
+            case 4:
+                loseHeart(3);
+                break;
+            case 5:
+                loseHeart(4);
+                this.gameOver();
+                break;
+        } 
     }
 
     /**
      * Checks to see if all letters have been revealed
+     * @returns {boolean} true if the player has won
      */
     checkForWin() {
-
+        const hiddenPhrase = this.activePhrase;
+        
     }
 
     /**
      * Displays game over message when player wins or loses
      */
     gameOver() {
+        document.getElementById('overlay').style.display = 'flex';
 
+        document.getElementById('game-over-message').textContent = 'YOU WON!'
+        document.getElementById('game-over-message').textContent = 'BETTER LUCK NEXT TIME'
     }
 
 }

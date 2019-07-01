@@ -9,7 +9,7 @@ class Phrase {
     addPhraseToDisplay() {
         const phraseSection = document.getElementById('phrase');
         const phraseList = phraseSection.querySelector('ul');
-        let hiddenPhrase = this.phrase;
+        const hiddenPhrase = this.phrase;
         [...hiddenPhrase].forEach(c => {
             let li = document.createElement('li');
             if (/[a-z]/.test(c)) {
@@ -37,7 +37,6 @@ class Phrase {
      */
     showMatchedLetter(key) {
         let letters = document.getElementsByClassName(key);
-        console.log(letters);
         for (let l of letters) {
             l.classList.add('show');
             l.classList.remove('hide');
