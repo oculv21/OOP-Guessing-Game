@@ -19,7 +19,7 @@ class Game {
      * Starts game by removing starting overlay, selecting a phrase and putting it on display
      */
     startGame() {
-        document.getElementById('overlay').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none'; 
         this.activePhrase = this.getRandomPhrase();
         this.activePhrase.addPhraseToDisplay();
     }
@@ -38,13 +38,15 @@ class Game {
                    btn.classList.add('chosen');
                    this.activePhrase.showMatchedLetter(key);
                    this.checkForWin();
+                   if (this.checkForWin()) {
+                       this.gameOver();
+                   }
                 } else {
                     btn.classList.add('wrong');
                     this.removeLife();
                 }
             });
         };
-       
     }
 
     /**
@@ -79,8 +81,13 @@ class Game {
      * @returns {boolean} true if the player has won
      */
     checkForWin() {
-        const hiddenPhrase = this.activePhrase;
-        
+        const phraseLettersArray = Array.prototype.slice.call(document.querySelectorAll('#phrase .letter')); //this methood of converting the nodelist into an array was copied from https://davidwalsh.name/nodelist-array
+        const onDisplay = c => c.classList.contains('show');
+        if (phraseLettersArray.every(onDisplay) && this.missed < 5) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -88,9 +95,11 @@ class Game {
      */
     gameOver() {
         document.getElementById('overlay').style.display = 'flex';
-
-        document.getElementById('game-over-message').textContent = 'YOU WON!'
-        document.getElementById('game-over-message').textContent = 'BETTER LUCK NEXT TIME'
+        if(this.checkForWin()) {
+            document.getElementById('game-over-message').textContent = 'YOU WON!';
+        } else if (this.missed == 5) {
+            document.getElementById('game-over-message').textContent = 'BETTER LUCK NEXT TIME';
+        }
     }
 
 }
