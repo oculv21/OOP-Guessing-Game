@@ -87,13 +87,25 @@ class Game {
     }
 
     /**
-     * Resets game
+     * Resets game by restoring live hearts, showing a new phrase, and enabling the keyboard buttons
      */
     resetGame() {
         const hearts = document.querySelectorAll('.tries img')
         for (let h of hearts) {
             h.setAttribute('src', 'images/liveHeart.png')
         }
+        document.getElementById('phrase').innerHTML = '<ul></ul>';
+        this.activePhrase = this.getRandomPhrase();
+        this.activePhrase.addPhraseToDisplay();
+        const keys = document.getElementsByClassName('key');
+        for (let k of keys) {
+            k.setAttribute('disabled', false);
+            if (k.classList.contains('chosen')) {
+                k.classList.remove('chosen')
+            } else if (k.classList.contains('wrong')) {
+                k.classList.remove('wrong');
+            }
+        };
     }
 
 
