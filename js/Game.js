@@ -26,6 +26,7 @@ class Game {
 
     /**
      * Handles input from player's keyboard
+     * @param {string} event triggered when a keyboard button is clicked
      */
     handleInteraction(event) {
         const btn = event.target;
@@ -86,6 +87,17 @@ class Game {
     }
 
     /**
+     * Resets game
+     */
+    resetGame() {
+        const hearts = document.querySelectorAll('.tries img')
+        for (let h of hearts) {
+            h.setAttribute('src', 'images/liveHeart.png')
+        }
+    }
+
+
+    /**
      * Displays game over message when player wins or loses
      */
     gameOver() {
@@ -95,6 +107,10 @@ class Game {
         } else if (this.missed == 5) {
             document.getElementById('game-over-message').textContent = 'BETTER LUCK NEXT TIME';
         }
+        const resetBtn = document.getElementById('btn__reset');resetBtn.textContent = 'New Game';
+        resetBtn.addEventListener('click', () => {
+            this.resetGame();
+        });
     }
 }
 
