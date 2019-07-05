@@ -1,8 +1,18 @@
+const game = new Game();
+
 /**
  * Event listener for start button
  */
-document.getElementById('btn__reset').addEventListener('click', function() {
-    const game = new Game();
+document.getElementById('btn__reset').addEventListener('click', function () {
     game.startGame();
-    game.handleInteraction();
-})
+});
+
+/**
+ * Event listeners for keyboard buttons
+ */
+const keys = document.getElementsByClassName('key');
+for (let key of keys) {
+    key.addEventListener('click', event => {
+        game.handleInteraction(event);
+    });
+};

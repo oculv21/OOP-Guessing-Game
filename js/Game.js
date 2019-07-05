@@ -1,8 +1,8 @@
 class Game {
-    constructor () {
+    constructor() {
         this.missed = 0;
         this.phrases = ['Seize the day', 'Just keep swimming', 'Love conquers all', 'No pain no gain', 'Dream without limits', 'Life is good', 'Work hard play hard'];
-        this.activePhrase = 'null';
+        this.activePhrase = null;
     }
 
     /**
@@ -19,7 +19,7 @@ class Game {
      * Starts game by removing starting overlay, selecting a phrase and putting it on display
      */
     startGame() {
-        document.getElementById('overlay').style.display = 'none'; 
+        document.getElementById('overlay').style.display = 'none';
         this.activePhrase = this.getRandomPhrase();
         this.activePhrase.addPhraseToDisplay();
     }
@@ -27,26 +27,21 @@ class Game {
     /**
      * Handles input from player's keyboard
      */
-    handleInteraction() {
-        const keys = document.getElementsByClassName('key');
-        for (let key of keys) {
-            key.addEventListener('click', event => {
-                const btn = event.target;
-                const key = event.target.textContent;
-                btn.setAttribute('disabled', true);
-                if (this.activePhrase.checkLetter(key)) {
-                   btn.classList.add('chosen');
-                   this.activePhrase.showMatchedLetter(key);
-                   this.checkForWin();
-                   if (this.checkForWin()) {
-                       this.gameOver();
-                   }
-                } else {
-                    btn.classList.add('wrong');
-                    this.removeLife();
-                }
-            });
-        };
+    handleInteraction(event) {
+        const btn = event.target;
+        const key = event.target.textContent;
+        btn.setAttribute('disabled', true);
+        if (this.activePhrase.checkLetter(key)) {
+            btn.classList.add('chosen');
+            this.activePhrase.showMatchedLetter(key);
+            this.checkForWin();
+            if (this.checkForWin()) {
+                this.gameOver();
+            }
+        } else {
+            btn.classList.add('wrong');
+            this.removeLife();
+        }
     }
 
     /**
@@ -73,7 +68,7 @@ class Game {
                 loseHeart(4);
                 this.gameOver();
                 break;
-        } 
+        }
     }
 
     /**
@@ -95,12 +90,11 @@ class Game {
      */
     gameOver() {
         document.getElementById('overlay').style.display = 'flex';
-        if(this.checkForWin()) {
+        if (this.checkForWin()) {
             document.getElementById('game-over-message').textContent = 'YOU WON!';
         } else if (this.missed == 5) {
             document.getElementById('game-over-message').textContent = 'BETTER LUCK NEXT TIME';
         }
     }
-
 }
 
