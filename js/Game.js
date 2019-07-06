@@ -99,14 +99,14 @@ class Game {
         this.activePhrase.addPhraseToDisplay();
         const keys = document.getElementsByClassName('key');
         for (let k of keys) {
-            k.setAttribute('disabled', false);
+            k.removeAttribute('disabled');
             if (k.classList.contains('chosen')) {
                 k.classList.remove('chosen')
             } else if (k.classList.contains('wrong')) {
                 k.classList.remove('wrong');
             }
-        };
-    }
+        }
+    };
 
 
     /**
