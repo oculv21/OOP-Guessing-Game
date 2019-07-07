@@ -11,7 +11,7 @@ class Game {
      */
     getRandomPhrase() {
         const r = Math.floor(Math.random() * this.phrases.length);
-        const obj = new Phrase(this.phrases[r])
+        const obj = new Phrase(this.phrases[r]);
         return obj;
     }
 
@@ -26,7 +26,7 @@ class Game {
 
     /**
      * Handles input from player's keyboard
-     * @param {string} event triggered when a keyboard button is clicked
+     * @param {object} event object that is triggered when a keyboard button is clicked
      */
     handleInteraction(event) {
         const btn = event.target;
@@ -87,7 +87,7 @@ class Game {
     }
 
     /**
-     * Resets game by restoring live hearts, showing a new phrase, and enabling the keyboard buttons
+     * Resets game by restoring live hearts, resetting the missed property to 0, showing a new phrase, and enabling the keyboard buttons
      */
     resetGame() {
         this.missed = 0;
@@ -111,14 +111,16 @@ class Game {
 
 
     /**
-     * Displays game over message when player wins or loses
+     * Displays game over message when player wins or loses, and gives player the option of playing a new game
      */
     gameOver() {
         document.getElementById('overlay').style.display = 'flex';
         if (this.checkForWin()) {
             document.getElementById('game-over-message').textContent = 'YOU WON!';
+            document.getElementById('overlay').classList.add('win');
         } else if (this.missed == 5) {
             document.getElementById('game-over-message').textContent = 'BETTER LUCK NEXT TIME';
+            document.getElementById('overlay').classList.add('lose');
         }
         const resetBtn = document.getElementById('btn__reset');resetBtn.textContent = 'New Game';
         resetBtn.addEventListener('click', () => {
