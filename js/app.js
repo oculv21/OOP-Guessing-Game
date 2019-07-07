@@ -16,3 +16,14 @@ for (let key of keys) {
         game.handleInteraction(event);
     });
 };
+
+/**
+ * Event listener for hint button reveals a hint about the phrases
+ */
+const hintBtn = document.getElementById('hint_btn');
+hintBtn.addEventListener('click', () => {
+    hintBtn.style.display = 'none';
+    const hint = document.createElement('p');
+    hint.textContent = "These are motivational or aspirational phrases.";
+    document.getElementById('hint').appendChild(hint);
+})

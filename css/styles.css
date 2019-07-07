@@ -65,6 +65,10 @@ button {
 	margin: 0 auto;
 }
 
+#hint_btn:hover {
+  transform: scale(1.2);
+}
+
 .main-container {
   display: flex;
   flex-direction: column;
@@ -111,7 +115,7 @@ button {
 
 .show {
   color: #fff;
-  background-color: #4ac0d5;
+  background-color: #ff00ff;
   font-size: 20px;
   height: 65px;
   width: 65px;
