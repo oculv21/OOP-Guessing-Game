@@ -22,16 +22,44 @@ class Game {
         document.getElementById('overlay').style.display = 'none';
         this.activePhrase = this.getRandomPhrase();
         this.activePhrase.addPhraseToDisplay();
+        document.getElementById('hint').style.display = 'none';
     }
 
     /**
-     * Handles input from player's keyboard
-     * @param {object} event object that is triggered when a keyboard button is clicked
+     * Handles input from onscreen keyboard
+     * @param event object that is triggered when an onscreen keyboard button is clicked
      */
     handleInteraction(event) {
         const btn = event.target;
         const key = event.target.textContent;
         btn.setAttribute('disabled', true);
+        if (this.activePhrase.checkLetter(key)) {
+            btn.classList.add('chosen');
+            this.activePhrase.showMatchedLetter(key);
+            this.checkForWin();
+            if (this.checkForWin()) {
+                this.gameOver();
+            }
+        } else {
+            btn.classList.add('wrong');
+            this.removeLife();
+        }
+    }
+
+    /**
+     * Handles input from player's keyboard
+     * @param keyboard key that gets pressed
+     */
+    handleKeyboardInteraction(keyPressed) {
+        const key = keyPressed;
+        const onscreenKeys = document.getElementsByClassName('key');
+        let btn;
+        for(let k of onscreenKeys) {
+            if (k.textContent == key) {
+                btn = k;
+            } 
+        };
+        btn.disabled = true;
         if (this.activePhrase.checkLetter(key)) {
             btn.classList.add('chosen');
             this.activePhrase.showMatchedLetter(key);
@@ -107,6 +135,8 @@ class Game {
                 k.classList.remove('wrong');
             }
         }
+        document.getElementById('hint_btn').style.display = 'inline-block';
+        document.getElementById('hint').style.display = 'none';
     };
 
 

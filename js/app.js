@@ -16,7 +16,9 @@ document.getElementById('btn__reset').addEventListener('click', function () {
             game.handleInteraction(event);
         });
     };
-    
+    document.addEventListener('keydown', event => {
+            game.handleKeyboardInteraction(event.key);
+    });
 });
 
 
@@ -27,7 +29,5 @@ document.getElementById('btn__reset').addEventListener('click', function () {
 const hintBtn = document.getElementById('hint_btn');
 hintBtn.addEventListener('click', () => {
     hintBtn.style.display = 'none';
-    const hint = document.createElement('p');
-    hint.textContent = "These are motivational or aspirational phrases.";
-    document.getElementById('hint').appendChild(hint);
+    document.getElementById('hint').style.display = 'inline-block';
 })
