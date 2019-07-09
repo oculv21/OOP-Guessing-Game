@@ -59,7 +59,6 @@ class Game {
                 btn = k;
             } 
         };
-        btn.disabled = true;
         if (this.activePhrase.checkLetter(key)) {
             btn.classList.add('chosen');
             this.activePhrase.showMatchedLetter(key);
@@ -69,8 +68,11 @@ class Game {
             }
         } else {
             btn.classList.add('wrong');
-            this.removeLife();
+            if(btn.disabled == false) {
+                this.removeLife();
+            } 
         }
+        btn.disabled = true;
     }
 
     /**
