@@ -150,9 +150,11 @@ class Game {
         if (this.checkForWin()) {
             document.getElementById('game-over-message').textContent = 'YOU WON!';
             document.getElementById('overlay').classList.add('win');
+            document.getElementById('overlay').classList.remove('lose');
         } else if (this.missed == 5) {
             document.getElementById('game-over-message').textContent = 'BETTER LUCK NEXT TIME';
             document.getElementById('overlay').classList.add('lose');
+            document.getElementById('overlay').classList.remove('win');
         }
         const resetBtn = document.getElementById('btn__reset');resetBtn.textContent = 'New Game';
         resetBtn.addEventListener('click', () => {
